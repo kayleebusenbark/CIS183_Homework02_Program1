@@ -3,6 +3,7 @@ package com.example.cis183_homework02_program1;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         listOfColors = new ArrayList<ColorInfo>();
         currentColor = new ColorInfo();
 
+        resetSetSeekBars();
+        setupListViewItemClickListener();
         saveColorButtonClickEvent();
         colorSeekBarKeyEventListener();
         fillListView();
@@ -142,6 +145,14 @@ public class MainActivity extends AppCompatActivity {
         String hexColor = String.format("%02X%02X%02X", currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue());
         currentColor.setHexRep(hexColor);
         tv_j_hexRep.setText("Hex: " + hexColor);
+
+        double brightness = (0.299 * currentColor.getRed()) + (0.587 * currentColor.getGreen()) + (0.114 * currentColor.getBlue());
+
+        int textColor = (brightness < 128) ? Color.WHITE : Color.BLACK;
+        tv_j_red.setTextColor(textColor);
+        tv_j_green.setTextColor(textColor);
+        tv_j_blue.setTextColor(textColor);
+        tv_j_hexRep.setTextColor(textColor);
     }
 
 
@@ -188,12 +199,41 @@ public class MainActivity extends AppCompatActivity {
     {
         adaptor = new ColorInfoListAdaptor(this, listOfColors);
         lv_j_colorList.setAdapter(adaptor);
+
+    }
+    private void setupListViewItemClickListener()
+    {
+        lv_j_colorList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ColorInfo selectedColor = (ColorInfo) adaptor.getItem(i);
+                applySelectedColor(selectedColor);
+            }
+        });
     }
 
-    private void addListViewClickListener()
+
+    private void applySelectedColor(ColorInfo color)
     {
-        ;
+        sb_j_red.setProgress(color.getRed());
+        sb_j_green.setProgress(color.getGreen());
+        sb_j_blue.setProgress(color.getBlue());
+
+        tv_j_red.setText("Red: "+ color.getRed());
+        tv_j_green.setText("Green: " + color.getGreen());
+        tv_j_blue.setText("Blue: " + color.getBlue());
+        tv_j_hexRep.setText("Hex: " + color.getHexRep());
+
+        getWindow().getDecorView().setBackgroundColor(Color.rgb(color.getRed(), color.getGreen(), color.getBlue()));
+
+        currentColor.setRed(color.getRed());
+        currentColor.setGreen(color.getGreen());
+        currentColor.setBlue(color.getBlue());
+        currentColor.setHexRep(color.getHexRep());
+
     }
+
+
 
 
 }

@@ -16,6 +16,7 @@ public class ColorInfoListAdaptor extends BaseAdapter
     Context context;
     ArrayList<ColorInfo> listOfColorInfo;
 
+
     public ColorInfoListAdaptor(Context c, ArrayList<ColorInfo> ls)
     {
         context = c;
@@ -67,6 +68,14 @@ public class ColorInfoListAdaptor extends BaseAdapter
         hex.setText("Hex: " + colorInfo.getHexRep());
 
         view.setBackgroundColor(Color.rgb(colorInfo.getRed(), colorInfo.getGreen(), colorInfo.getBlue()));
+
+        double brightness = (0.299 * colorInfo.getRed()) + (0.587 * colorInfo.getGreen()) + (0.114 * colorInfo.getBlue());
+        int textColor = (brightness < 128) ? Color.WHITE : Color.BLACK;
+
+        red.setTextColor(textColor);
+        green.setTextColor(textColor);
+        blue.setTextColor(textColor);
+        hex.setTextColor(textColor);
 
         return view;
     }
