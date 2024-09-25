@@ -150,10 +150,12 @@ public class MainActivity extends AppCompatActivity {
         currentColor.setHexRep(hexColor);
         tv_j_hexRep.setText("Hex: " + hexColor);
 
-        //using this formula, the text will be edited
+        //using this formula, the text will be
+        //used stackoverflow to help with formula
+        //https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color
         double brightness = (0.299 * currentColor.getRed()) + (0.587 * currentColor.getGreen()) + (0.114 * currentColor.getBlue());
-
         int textColor = (brightness < 128) ? Color.WHITE : Color.BLACK;
+
         tv_j_red.setTextColor(textColor);
         tv_j_green.setTextColor(textColor);
         tv_j_blue.setTextColor(textColor);

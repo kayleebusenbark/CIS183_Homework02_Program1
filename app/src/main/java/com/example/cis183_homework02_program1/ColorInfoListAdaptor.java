@@ -70,6 +70,8 @@ public class ColorInfoListAdaptor extends BaseAdapter
         view.setBackgroundColor(Color.rgb(colorInfo.getRed(), colorInfo.getGreen(), colorInfo.getBlue()));
 
         //using this formula, the text will be edited
+        //used stackoverflow to help with formula
+        //https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color
         double brightness = (0.299 * colorInfo.getRed()) + (0.587 * colorInfo.getGreen()) + (0.114 * colorInfo.getBlue());
         int textColor = (brightness < 128) ? Color.WHITE : Color.BLACK;
 
