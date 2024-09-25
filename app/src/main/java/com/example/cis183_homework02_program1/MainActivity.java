@@ -1,3 +1,7 @@
+//==========================================
+//Name: Kaylee Busenbark
+//Date: 9/24/2024
+//Desc: Homework02 Program 01 RGB Background Color Slider
 package com.example.cis183_homework02_program1;
 
 import android.graphics.Color;
